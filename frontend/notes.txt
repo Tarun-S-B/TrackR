@@ -1,0 +1,6 @@
+settings
+1: currency
+
+
+customize the home page with widgets
+select the range of the timeline on the widgets/graphs

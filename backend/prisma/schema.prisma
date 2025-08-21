@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Defines the database connection and Prisma Client generator.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// ##--------------------------------##
+// ##          MODELS              ##
+// ##--------------------------------##
+
+// Represents a user of the application.
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password_hash String
+  createdAt     DateTime  @default(now())
+
+  // Relation: A user can have multiple accounts.
+  accounts      Account[]
+}
+
+// Represents a financial account (e.g., bank, credit card).
+model Account {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   // e.g., "Bank", "Credit Card", "Investment"
+  balance   Decimal  @db.Decimal(10, 2) // Precision for currency
+  createdAt DateTime @default(now())
+
+  // Relation: Each account belongs to one user.
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+
+  // Relation: An account can have many transactions.
+  transactions Transaction[]
+}
+
+// Represents a single financial transaction.
+model Transaction {
+  id          String   @id @default(uuid())
+  amount      Decimal  @db.Decimal(10, 2)
+  type        String // Uses the Enum defined below
+  category    String   // e.g., "Groceries", "Salary"
+  description String?  // The '?' makes this field optional
+  date        DateTime @db.Date// The date the transaction occurred
+  createdAt   DateTime @default(now())
+
+  // Relation: Each transaction belongs to one account.
+  account   Account  @relation(fields: [accountId], references: [id])
+  accountId String
+}
+
+

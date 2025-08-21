@@ -1,0 +1,62 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Logs
+logs
+*.log
+*.log.*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime data
+lib-cov
+coverage/
+.nyc_output
+.cache/
+.cache-loader/
+dist/
+build/
+
+# dotenv environment files
+.env
+.env.local
+.env.*.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor stuff
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+coverage/
+jest-cache/
+jest.config.js
+
+# React specific
+client/node_modules/
+client/build/
+
+# Optional: if using Next.js instead of CRA
+.next/
+out/
+
+# Optional: if using Vite
+client/dist/
+
+# MongoDB local database files (if checked in by mistake)
+*.lock
+dump/
