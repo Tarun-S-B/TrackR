@@ -23,7 +23,7 @@ const Home = () => {
                 {/* <Graph />
                 <Graph /> */}
             {/* <MonthPicker /> */}
-            <TransactionEntry />
+            {/* <TransactionEntry /> */}
             </div>
 
 

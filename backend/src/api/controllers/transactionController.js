@@ -32,7 +32,54 @@ const newIncome = async(req, res) => {
   }
 }
 
+const newRecurring = async(req, res) => {
+  try {
+    const recurringData = req.body;
+    const newRecurring = await transactionService.addRecurring(recurringData);
+    console.log("New Recurring Transaction Created:", newRecurring);
+    res.status(201).json({message: "recurring transaction created successfully", data: newRecurring});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message: "Internal server error", error: error.message});
+  }
+}
+
+const getTransactionsByUserIdAndType = async (req, res) => {
+  try {
+    const { page = 1, limit = 10, type } = req.query;
+
+    // get the userid from the jwt token or session
+    // const userid = "8ae699bf-d8fc-48e9-915c-96daeb5a5fd6";
+    const userid = "demo-account-id";
+
+    const transactionsData = await transactionService.getTransactionsByUserIdAndType(page, limit, userid, type.toUpperCase());
+    res.status(200).json(transactionsData);
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
+
+const getRecurringTransactionsByUserId = async (req, res) => {
+  try {
+    const { page = 1, limit = 10 } = req.query;
+
+    // get the userid from the jwt token or session
+    // const userid = "8ae699bf-d8fc-48e9-915c-96daeb5a5fd6";
+    const userid = "demo-account-id";
+
+    const transactionsData = await transactionService.getRecurringTransactionsByUserId(page, limit, userid);
+    res.status(200).json(transactionsData);
+  } catch (error) {
+    console.error("Error fetching recurring transactions:", error);
+    res.status(500).json({ message: "Internal server error", error: error.message });
+  }
+}
+
 export default {
   newExpense,
   newIncome,
+  newRecurring,
+  getTransactionsByUserIdAndType,
+  getRecurringTransactionsByUserId,
 };

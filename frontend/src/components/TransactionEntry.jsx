@@ -1,39 +1,24 @@
-const TransactionEntry = () => {
-    const index = 12
-    const tx = {
-        id: 1,
-        category: "Investment",
-        description: "Invested in mutual funds",
-        date: "2023-10-01",
-        amount: -5000
-    };
-    return (
-        <>
-            <div
-            key={tx.id}
-            className={`flex w-[800px] justify-between items-center p-4 rounded-2xl shadow-md transition-transform hover:scale-[1.01] 
-                ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`
-        }
-          >
-            {/* Left side: icon + description */}
-            <div>
-              <div className="flex items-center space-x-2 font-medium">
-                <span>{tx.category}</span>
-                <span>{tx.description}</span>
-              </div>
-              <p className="text-xs text-gray-500">{tx.date}</p>
-            </div>
+const TransactionEntry = ({transaction, index, type}) => {
+  const tx = transaction || {};
 
-            {/* Right side: amount */}
-            <div
-              className={`font-bold ${
-                tx.amount > 0 ? "text-green-600" : "text-red-500"
-              }`}
-            >
-              {tx.amount > 0 ? `+${tx.amount}` : tx.amount}
+  const formattedDate = tx.date ? new Date(tx.date).toLocaleDateString('en-US',{ year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A';
+  const formattedAmount = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'INR' }).format(tx.amount || 0);
+
+
+  return (
+        <div className={`flex w-full max-w-[800px] justify-between items-center p-4 rounded-2xl shadow-md transition-transform hover:scale-[1.01] 
+                ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+           <div>
+            <div className="flex items-center space-x-3 font-medium">
+              <span className="font-bold capitalize">{tx.category || 'Category'}</span>
+              <span>{tx.description || '-'}</span>
+              {/* <p>{tx.date.split('T')[0]}</p> */}
             </div>
-          </div>
-        </>
+            <div className={`font-bold text-lg ${type == 'EXPENSE' ? "text-red-500" : "text-green-500" }`}>
+              {formattedAmount}
+            </div>
+           </div>
+        </div>
     )
 }
 
