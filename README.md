@@ -1,8 +1,8 @@
 # TrackR
+Access App: 
 
 ### An web app which will help you keep track of your expenses, investments/savings, recurring transactions like EMI, Subscription payments, SIPs and many more to come.
 
-## Access App: 
 
 TrackR is a full-stack web application designed to provide a comprehensive solution for personal finance management. It allows users to monitor their income, expenses, and investments, with features for handling recurring transactions and visualizing financial data.
 
